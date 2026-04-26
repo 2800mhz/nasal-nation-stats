@@ -6,25 +6,25 @@
 
 @layer base {
   :root {
-    /* Terminal / Bloomberg-inspired dark theme */
-    --background: 0 0% 4%;
-    --foreground: 120 10% 92%;
+    /* Terminal / Bloomberg-inspired dark theme — locked surfaces */
+    --background: 0 0% 3.9%;       /* #0a0a0a */
+    --foreground: 0 0% 90%;        /* #e5e5e5 */
 
-    --card: 0 0% 7%;
-    --card-foreground: 120 10% 92%;
+    --card: 0 0% 6.7%;             /* #111111 */
+    --card-foreground: 0 0% 90%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 120 10% 92%;
+    --popover: 0 0% 6.7%;
+    --popover-foreground: 0 0% 90%;
 
-    /* Muted terminal amber/green accent — oturaklı */
+    /* Muted terminal green accent */
     --primary: 145 45% 55%;
     --primary-foreground: 0 0% 4%;
     --primary-glow: 145 45% 65%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 120 10% 92%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 0 0% 10%;
+    --muted: 0 0% 8%;
     --muted-foreground: 0 0% 55%;
 
     --accent: 145 45% 55%;
@@ -36,30 +36,28 @@
     --warning: 35 75% 55%;
     --warning-foreground: 0 0% 4%;
 
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
+    --border: 0 0% 12.2%;          /* #1f1f1f */
+    --input: 0 0% 12.2%;
     --ring: 145 45% 55%;
 
     --radius: 0.25rem;
 
-    /* Gradients — sade */
     --gradient-primary: linear-gradient(135deg, hsl(145 45% 55%), hsl(160 40% 50%));
     --gradient-glow: radial-gradient(circle at center, hsl(145 45% 55% / 0.05), transparent 70%);
     --gradient-grid: linear-gradient(hsl(0 0% 14%) 1px, transparent 1px),
                      linear-gradient(90deg, hsl(0 0% 14%) 1px, transparent 1px);
 
-    /* Shadows — sade, parıltısız */
     --shadow-glow: 0 0 0 1px hsl(0 0% 100% / 0.04);
     --shadow-card: 0 1px 0 hsl(0 0% 100% / 0.03) inset, 0 4px 16px hsl(0 0% 0% / 0.4);
     --shadow-neon: none;
 
-    --sidebar-background: 0 0% 6%;
-    --sidebar-foreground: 120 10% 92%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 90%;
     --sidebar-primary: 145 45% 55%;
     --sidebar-primary-foreground: 0 0% 4%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 120 10% 92%;
-    --sidebar-border: 0 0% 14%;
+    --sidebar-accent: 0 0% 9%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 0% 12.2%;
     --sidebar-ring: 145 45% 55%;
   }
 }
@@ -69,13 +67,30 @@
     @apply border-border;
   }
 
+  /* Hide scrollbars EVERYWHERE (still scrollable) */
+  *,
+  *::before,
+  *::after {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  html, body, #root {
+    background-color: #0a0a0a !important;
+    color: #e5e5e5;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground font-mono antialiased;
-    background-color: #0a0a0a;
     background-image: repeating-linear-gradient(
       0deg,
       transparent 0px,
