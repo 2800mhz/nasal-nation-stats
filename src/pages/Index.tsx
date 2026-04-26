@@ -106,10 +106,12 @@ const Index = () => {
             />
           </div>
 
-          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6">
+          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 mb-6">
             <TrendChart />
             <RegionalBreakdown />
           </div>
+
+          <AdvancedTelemetry />
         </div>
       </section>
 
