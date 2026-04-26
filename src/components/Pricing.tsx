@@ -66,18 +66,16 @@ export const Pricing = () => (
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-5">
+      <div className="grid md:grid-cols-3 gap-4">
         {TIERS.map((t) => (
           <div
             key={t.name}
-            className={`relative rounded-md border bg-card p-6 flex flex-col ${
-              t.featured
-                ? "border-primary/60 shadow-glow"
-                : "border-border shadow-card-elev"
+            className={`relative border bg-card p-6 flex flex-col ${
+              t.featured ? "border-primary" : "border-border"
             }`}
           >
             {t.badge && (
-              <span className="absolute -top-2.5 left-6 font-mono text-[9px] px-2 py-0.5 rounded-sm bg-primary text-primary-foreground tracking-widest font-bold">
+              <span className="absolute -top-2.5 left-6 font-mono text-[9px] px-2 py-0.5 bg-primary text-primary-foreground tracking-widest font-bold">
                 {t.badge}
               </span>
             )}
@@ -85,26 +83,26 @@ export const Pricing = () => (
               {t.name}
             </div>
             <div className="mt-4 flex items-baseline gap-1">
-              <span className={`font-mono text-4xl font-extrabold ${t.featured ? "text-primary text-glow" : "text-foreground"}`}>
+              <span className={`font-mono text-4xl font-extrabold ${t.featured ? "text-primary" : "text-foreground"}`}>
                 {t.price}
               </span>
               <span className="font-mono text-xs text-muted-foreground">{t.period}</span>
             </div>
-            <p className="text-sm text-muted-foreground mt-3 min-h-[40px]">{t.blurb}</p>
+            <p className="text-sm text-muted-foreground mt-3 min-h-[40px] font-mono">{t.blurb}</p>
 
             <ul className="mt-6 space-y-2.5 flex-1">
               {t.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm">
-                  <Check className={`w-4 h-4 mt-0.5 shrink-0 ${t.featured ? "text-primary" : "text-muted-foreground"}`} />
+                <li key={f} className="flex items-start gap-2 text-xs font-mono">
+                  <Check className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${t.featured ? "text-primary" : "text-muted-foreground"}`} />
                   <span className="text-foreground/90">{f}</span>
                 </li>
               ))}
             </ul>
 
             <button
-              className={`mt-6 w-full font-mono text-xs uppercase tracking-widest font-bold py-3 rounded-sm transition-all ${
+              className={`mt-6 w-full font-mono text-xs uppercase tracking-widest font-bold py-3 transition-all ${
                 t.featured
-                  ? "bg-primary text-primary-foreground hover:shadow-glow hover:brightness-110"
+                  ? "bg-primary text-primary-foreground hover:brightness-110"
                   : "border border-border text-foreground hover:border-primary/60 hover:text-primary"
               }`}
             >
