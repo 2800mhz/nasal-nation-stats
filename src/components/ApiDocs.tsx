@@ -14,17 +14,22 @@ const CURL = `curl -X GET https://api.nosepick.io/v1/current \\
   -H "Accept: application/json"`;
 
 const RESPONSE = `{
-  "timestamp": "2025-04-26T14:23:18.441Z",
-  "global": {
-    "active_pickers": 1134872419,
-    "confidence_interval": 0.973,
-    "margin_of_error": "±2.3%",
-    "model_version": "rhino-v4.2.1"
+  "current_pickers": 1134872419,
+  "confidence_interval": "±2.3%",
+  "model_version": "rhino-v4.2.1",
+  "privacy_epsilon": 0.3,
+  "observation_timestamp": "2025-04-26T14:23:18.441Z",
+  "regional_breakdown": {
+    "south_se_asia":   { "pickers": 412883711, "share": 0.364 },
+    "east_asia":       { "pickers": 218447220, "share": 0.193 },
+    "middle_east":     {  "pickers": 84112905, "share": 0.074 },
+    "europe":          { "pickers": 102837441, "share": 0.091 },
+    "north_america":   {  "pickers": 53219808, "share": 0.047 },
+    "africa":          { "pickers": 198471122, "share": 0.175 },
+    "latin_america":   {  "pickers": 64900212, "share": 0.057 }
   },
-  "rate_per_second": {
-    "starts": 312488,
-    "ends": 309117
-  },
+  "un_civilizational_index": 102487,
+  "rate_per_second": { "starts": 312488, "ends": 309117 },
   "metadata": {
     "data_sources": 47,
     "last_recalibration": "2025-04-26T14:00:00Z",
