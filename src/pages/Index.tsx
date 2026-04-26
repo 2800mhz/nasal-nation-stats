@@ -12,6 +12,8 @@ import { MarqueeTicker } from "@/components/MarqueeTicker";
 import { ObservationClock } from "@/components/ObservationClock";
 import { CountryTable } from "@/components/CountryTable";
 import { UNPanel } from "@/components/UNPanel";
+import { ApiPlayground } from "@/components/ApiPlayground";
+import { ResearchPapers } from "@/components/ResearchPapers";
 
 const Index = () => {
   return (
