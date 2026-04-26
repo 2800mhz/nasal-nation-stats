@@ -89,5 +89,20 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addBase }: { addBase: (styles: Record<string, unknown>) => void }) {
+      addBase({
+        "html, body, *": {
+          "scrollbar-width": "none !important",
+          "-ms-overflow-style": "none !important",
+        },
+        "html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar": {
+          display: "none !important",
+          width: "0 !important",
+          height: "0 !important",
+        },
+      });
+    },
+  ],
 } satisfies Config;

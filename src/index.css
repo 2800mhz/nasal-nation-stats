@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 
+html, body, * { 
+  scrollbar-width: none !important; 
+  -ms-overflow-style: none !important;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar { 
+  display: none !important; 
+  width: 0 !important; 
+  height: 0 !important; 
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -82,6 +94,7 @@
 
   html, body, #root {
     background-color: #0a0a0a !important;
+    min-height: 100vh;
     color: #e5e5e5;
   }
 
