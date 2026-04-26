@@ -74,11 +74,15 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    background-image:
-      linear-gradient(hsl(0 0% 7%) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(0 0% 7%) 1px, transparent 1px);
-    background-size: 32px 32px, 32px 32px;
+    @apply bg-background text-foreground font-mono antialiased;
+    background-color: #0a0a0a;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      hsl(0 0% 100% / 0.018) 2px,
+      hsl(0 0% 100% / 0.018) 3px
+    );
   }
 
   ::selection {
@@ -130,6 +134,8 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -137,5 +143,5 @@
 
 .animate-pulse-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
 .animate-flicker { animation: flicker 3s ease-in-out infinite; }
-.animate-ticker { animation: ticker 60s linear infinite; }
+.animate-ticker { animation: ticker 90s linear infinite; }
 .animate-blink { animation: blink 1s step-end infinite; }

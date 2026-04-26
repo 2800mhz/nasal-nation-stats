@@ -1,6 +1,6 @@
 const LOGOS = [
-  "STANFORD HCI", "MIT MEDIA", "ETH ZÜRICH", "MAX PLANCK",
-  "WHO BEHAVIORAL", "JOHNS HOPKINS", "PFIZER R&D", "UNILEVER",
+  "STANFORD", "MIT", "WHO", "PFIZER", "NATURE",
+  "JAMA", "CDC", "OXFORD", "ETH ZÜRICH", "KAROLINSKA",
 ];
 
 export const TrustBar = () => (
@@ -9,7 +9,7 @@ export const TrustBar = () => (
       <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground text-center mb-4">
         Cited & deployed by
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-3 items-center justify-items-center font-mono text-[11px] font-semibold text-muted-foreground/70">
+      <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-x-4 gap-y-3 items-center justify-items-center font-mono text-[11px] font-semibold text-muted-foreground/70">
         {LOGOS.map((l) => (
           <span key={l} className="whitespace-nowrap hover:text-foreground transition-colors cursor-default">
             {l}

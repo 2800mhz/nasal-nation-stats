@@ -26,7 +26,7 @@ export const TrendChart = () => {
   }, []);
 
   return (
-    <div className="rounded-md border border-border bg-card shadow-card-elev p-5">
+    <div className="border border-border bg-card p-5">
       <div className="flex items-start justify-between mb-4">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
