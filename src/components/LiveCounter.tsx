@@ -49,21 +49,20 @@ export const LiveCounter = () => {
 
   return (
     <div className="relative">
-      <div className="absolute inset-0 -z-10 gradient-radial blur-2xl" aria-hidden />
       <div className="flex items-center justify-center gap-1 sm:gap-2 font-mono font-extrabold tabular-nums leading-none">
         {digits.map((d, i) => (
           <span
             key={i}
             className={
               d === ","
-                ? "text-primary/40 text-4xl sm:text-6xl md:text-7xl lg:text-8xl"
-                : "text-primary text-glow-strong text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
+                ? "text-foreground/30 text-4xl sm:text-6xl md:text-7xl lg:text-8xl"
+                : "text-foreground text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
             }
           >
             {d}
           </span>
         ))}
-        <span className="ml-2 w-[6px] sm:w-[10px] h-10 sm:h-16 md:h-20 lg:h-24 bg-primary animate-blink shadow-neon" aria-hidden />
+        <span className="ml-2 w-[4px] sm:w-[6px] h-10 sm:h-16 md:h-20 lg:h-24 bg-primary/80 animate-blink" aria-hidden />
       </div>
     </div>
   );

@@ -8,11 +8,14 @@ import { Pricing } from "@/components/Pricing";
 import { Methodology } from "@/components/Methodology";
 import { TrustBar } from "@/components/TrustBar";
 import { Footer } from "@/components/Footer";
+import { Ticker } from "@/components/Ticker";
+import { AdvancedTelemetry } from "@/components/AdvancedTelemetry";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Nav />
+      <Ticker />
 
       {/* HERO */}
       <section className="relative pt-16 pb-12 md:pt-24 md:pb-20">
@@ -103,10 +106,12 @@ const Index = () => {
             />
           </div>
 
-          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6">
+          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 mb-6">
             <TrendChart />
             <RegionalBreakdown />
           </div>
+
+          <AdvancedTelemetry />
         </div>
       </section>
 
