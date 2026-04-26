@@ -8,6 +8,8 @@ import { Pricing } from "@/components/Pricing";
 import { Methodology } from "@/components/Methodology";
 import { TrustBar } from "@/components/TrustBar";
 import { Footer } from "@/components/Footer";
+import { Ticker } from "@/components/Ticker";
+import { AdvancedTelemetry } from "@/components/AdvancedTelemetry";
 
 const Index = () => {
   return (
