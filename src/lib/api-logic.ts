@@ -14,7 +14,6 @@ export const CONCURRENT_RATE =
   (CONSTANTS.picks_per_day * CONSTANTS.avg_pick_duration_seconds) / 86400; // ~0.000509
 
 export const BASE_CONCURRENT =
-  CONSTANTS.world_population * CONSTANTS.base_rate * CONSTANTS.concurrent_rate ??
   CONSTANTS.world_population * CONSTANTS.base_rate * CONCURRENT_RATE;
 
 // Diurnal sine wave: peaks 09:00 and 21:00 UTC, trough 04:00 UTC.
