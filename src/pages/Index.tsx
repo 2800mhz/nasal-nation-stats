@@ -15,6 +15,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Nav />
+      <Ticker />
 
       {/* HERO */}
       <section className="relative pt-16 pb-12 md:pt-24 md:pb-20">
