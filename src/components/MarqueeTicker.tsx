@@ -53,26 +53,27 @@ export const MarqueeTicker = () => {
     return () => clearInterval(id);
   }, []);
 
-  // Duplicate content for seamless loop
-  const content = (
-    <div className="inline-flex items-center shrink-0">
-      {items.map((t, i) => (
-        <span key={i} className="inline-flex items-center px-6 font-mono text-[11px]">
-          <span className="text-primary mr-2">▌</span>
-          <span className="text-foreground/90 whitespace-nowrap">{t}</span>
-        </span>
-      ))}
-    </div>
-  );
-
   return (
-    <div className="w-full border-b border-border bg-card overflow-hidden relative">
+    <div className="w-full border-b border-border bg-card relative overflow-hidden" style={{ height: '36px' }}>
       <div className="absolute left-0 top-0 bottom-0 z-10 px-3 flex items-center bg-primary text-primary-foreground font-mono text-[10px] font-bold tracking-widest uppercase">
         ◉ WIRE
       </div>
-      <div className="pl-20 py-2 flex w-max animate-ticker">
-        {content}
-        {content}
+      <div
+        className="absolute top-0 left-0 h-full flex items-center"
+        style={{ width: 'max-content', animation: 'ticker 90s linear infinite', paddingLeft: '72px' }}
+      >
+        {items.map((t, i) => (
+          <span key={`a-${i}`} className="inline-flex items-center px-6 font-mono text-[11px]">
+            <span className="text-primary mr-2">▌</span>
+            <span className="text-foreground/90 whitespace-nowrap">{t}</span>
+          </span>
+        ))}
+        {items.map((t, i) => (
+          <span key={`b-${i}`} className="inline-flex items-center px-6 font-mono text-[11px]">
+            <span className="text-primary mr-2">▌</span>
+            <span className="text-foreground/90 whitespace-nowrap">{t}</span>
+          </span>
+        ))}
       </div>
     </div>
   );
