@@ -121,8 +121,10 @@ const Index = () => {
       </section>
 
       <ApiDocs />
+      <ApiPlayground />
       <Methodology />
       <Pricing />
+      <ResearchPapers />
       <Footer />
     </div>
   );

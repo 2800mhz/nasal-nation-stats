@@ -13,10 +13,12 @@ export const Nav = () => {
         </a>
 
         <nav className="hidden md:flex items-center gap-7 font-mono text-xs text-muted-foreground">
-          <a href="#telemetry" className="hover:text-primary transition-colors">TELEMETRY</a>
-          <a href="#docs" className="hover:text-primary transition-colors">DOCS</a>
-          <a href="#methodology" className="hover:text-primary transition-colors">METHODOLOGY</a>
-          <a href="#pricing" className="hover:text-primary transition-colors">PRICING</a>
+          <a href="/#telemetry" className="hover:text-primary transition-colors">TELEMETRY</a>
+          <a href="/#playground" className="hover:text-primary transition-colors">PLAYGROUND</a>
+          <a href="/#docs" className="hover:text-primary transition-colors">DOCS</a>
+          <a href="/#research" className="hover:text-primary transition-colors">RESEARCH</a>
+          <a href="/#pricing" className="hover:text-primary transition-colors">PRICING</a>
+          <a href="/status" className="hover:text-primary transition-colors">STATUS</a>
         </nav>
 
         <div className="flex items-center gap-3">
