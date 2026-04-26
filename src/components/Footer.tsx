@@ -11,7 +11,7 @@ export const Footer = () => (
           Operated by Rhinometric Labs GmbH, Berlin.
         </p>
         <p className="text-muted-foreground/60 mt-4 text-[10px]">
-          © 2025 Rhinometric Labs. All figures probabilistic. Not medical advice. ε-DP compliant.
+          Powered by rhino-v4.2.1 · ε-differential privacy · IRB approved · © 2025 Rhinometric Labs.
         </p>
       </div>
       <div>
