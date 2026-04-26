@@ -61,7 +61,7 @@ export const ApiDocs = () => {
 
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Endpoint list */}
-          <div className="rounded-md border border-border bg-card shadow-card-elev overflow-hidden">
+          <div className="border border-border bg-card overflow-hidden">
             <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/40">
               <span className="w-2.5 h-2.5 rounded-full bg-destructive/80" />
               <span className="w-2.5 h-2.5 rounded-full bg-warning/80" />
@@ -107,7 +107,7 @@ const CodeBlock = ({
   onCopy: () => void;
   copied: boolean;
 }) => (
-  <div className="rounded-md border border-border bg-card shadow-card-elev overflow-hidden">
+  <div className="border border-border bg-card overflow-hidden">
     <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/40">
       <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{title}</span>
       <button

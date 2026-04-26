@@ -39,7 +39,7 @@ export const Methodology = () => (
         </div>
       </div>
 
-      <div className="rounded-md border border-border bg-card shadow-card-elev p-5">
+      <div className="border border-border bg-card p-5">
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-4">
           Selected Citations
         </div>
