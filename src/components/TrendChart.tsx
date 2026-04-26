@@ -37,7 +37,7 @@ export const TrendChart = () => {
           </h3>
         </div>
         <div className="flex items-center gap-2 font-mono text-[10px] text-muted-foreground">
-          <span className="w-2 h-2 rounded-full bg-primary animate-flicker shadow-neon" />
+          <span className="w-1.5 h-1.5 rounded-full bg-primary/80" />
           STREAMING · 1Hz
         </div>
       </div>

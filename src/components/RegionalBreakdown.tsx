@@ -66,7 +66,7 @@ export const RegionalBreakdown = () => {
               <div className="truncate text-foreground">{r.name}</div>
               <div className="relative h-1 mt-1 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="absolute inset-y-0 left-0 bg-gradient-primary shadow-neon"
+                  className="absolute inset-y-0 left-0 bg-primary/70"
                   style={{ width: `${(r.pickers / max) * 100}%` }}
                 />
               </div>
