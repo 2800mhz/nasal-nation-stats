@@ -14,7 +14,19 @@ const ALERTS = [
   "INTEL — North America off-peak trough · expected recovery 13:00 EST",
   "COMPLIANCE — Differential privacy budget ε=0.3 maintained across all 47 streams",
   "FORECAST — Next 6h projection: +2.1% global pickers, weighted by humidity correlation",
+  "SECURITY — Rate-limit threshold raised to 10k req/min for verified Pro keys",
+  "DATA — Kluijtmans 2023 cohort re-ingested · prevalence rate confirmed at 0.91",
+  "WIRE — UN-DESA 2024 statistical annex now powering Civilizational Index",
 ];
+
+function pickAlerts(n: number): string[] {
+  const pool = [...ALERTS];
+  const out: string[] = [];
+  for (let i = 0; i < n; i++) {
+    out.push(pool[Math.floor(Math.random() * pool.length)]);
+  }
+  return out;
+}
 
 function buildItems(now: Date): string[] {
   const total = COUNTRIES.reduce((s, c) => s + pickersFor(c, now, Math.random()), 0);
@@ -23,40 +35,44 @@ function buildItems(now: Date): string[] {
     .sort((a, b) => b.v - a.v)
     .slice(0, 3);
 
-  const stats = [
+  return [
     `GLOBAL ▲ ${fmtInt(total)} active pickers · CI ±2.3% · 97.3% conf.`,
     `MODEL rhino-v4.2.1 · ε=0.3 · 47 streams · last recal ${now.toISOString().slice(11, 19)} UTC`,
     ...top3.map(
       (t) => `${t.c.flag} ${t.c.name.toUpperCase()} ${fmtInt(t.v)} (${((t.v / t.c.population) * 100).toFixed(2)}% pop.)`
     ),
-    ...ALERTS,
+    ...pickAlerts(8),
   ];
-  return stats;
 }
 
 export const MarqueeTicker = () => {
   const [items, setItems] = useState<string[]>(() => buildItems(new Date()));
 
   useEffect(() => {
-    const id = setInterval(() => setItems(buildItems(new Date())), 8000);
+    const id = setInterval(() => setItems(buildItems(new Date())), 30_000);
     return () => clearInterval(id);
   }, []);
 
-  // Duplicate for seamless loop
-  const loop = [...items, ...items];
+  // Duplicate content for seamless loop
+  const content = (
+    <div className="inline-flex items-center shrink-0">
+      {items.map((t, i) => (
+        <span key={i} className="inline-flex items-center px-6 font-mono text-[11px]">
+          <span className="text-primary mr-2">▌</span>
+          <span className="text-foreground/90 whitespace-nowrap">{t}</span>
+        </span>
+      ))}
+    </div>
+  );
 
   return (
-    <div className="w-full border-b border-border bg-card/60 overflow-hidden relative">
+    <div className="w-full border-b border-border bg-card overflow-hidden relative">
       <div className="absolute left-0 top-0 bottom-0 z-10 px-3 flex items-center bg-primary text-primary-foreground font-mono text-[10px] font-bold tracking-widest uppercase">
         ◉ WIRE
       </div>
-      <div className="flex animate-ticker whitespace-nowrap py-2 pl-20 font-mono text-[11px]">
-        {loop.map((t, i) => (
-          <span key={i} className="inline-flex items-center px-6">
-            <span className="text-primary mr-2">▌</span>
-            <span className="text-foreground/90">{t}</span>
-          </span>
-        ))}
+      <div className="pl-20 py-2 flex w-max animate-ticker">
+        {content}
+        {content}
       </div>
     </div>
   );
