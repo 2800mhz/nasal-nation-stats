@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { countryPayload, findCountry } from '../../../src/lib/api-logic';
+import { countryPayload, findCountry } from '../../_lib/api-logic.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   const { code } = req.query;
