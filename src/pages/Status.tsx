@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Nav } from "@/components/Nav";
 import { MarqueeTicker } from "@/components/MarqueeTicker";
 import { Footer } from "@/components/Footer";
@@ -18,16 +19,22 @@ interface StatusPayload {
   services: Service[];
 }
 
-// Deterministic 90-day uptime bars (per-service seed)
+async function fetchStatus(): Promise<StatusPayload> {
+  const res = await fetch("/api/v1/status");
+  if (!res.ok) {
+    throw new Error("Failed to load status");
+  }
+  return res.json();
+}
+
 function bars(serviceIdx: number, uptime: number) {
   const arr: ("ok" | "deg" | "down")[] = [];
-  // seed-based pseudo-random
   let seed = serviceIdx * 7919 + 31;
   const rand = () => {
     seed = (seed * 9301 + 49297) % 233280;
     return seed / 233280;
   };
-  for (let i = 0; i < 90; i++) {
+  for (let i = 0; i < 90; i += 1) {
     const r = rand();
     const failProb = (100 - uptime) / 100;
     if (r < failProb * 0.2) arr.push("down");
@@ -37,16 +44,15 @@ function bars(serviceIdx: number, uptime: number) {
   return arr;
 }
 
-const Status = () => {
-  const [data, setData] = useState<StatusPayload | null>(null);
-  const [err, setErr] = useState<string | null>(null);
+export default function Status() {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["status"],
+    queryFn: fetchStatus,
+    refetchInterval: 15_000,
+    staleTime: 10_000,
+  });
 
-  useEffect(() => {
-    fetch("/api/v1/status")
-      .then((r) => r.json())
-      .then(setData)
-      .catch((e) => setErr(e.message));
-  }, []);
+  const updated = useMemo(() => data?.observation_timestamp ?? "—", [data]);
 
   return (
     <div className="min-h-screen">
@@ -66,28 +72,32 @@ const Status = () => {
                 ALL SYSTEMS NOMINAL
               </span>
             </div>
-            <span className="font-mono text-[10px] text-muted-foreground">
-              {data?.observation_timestamp ?? "— : — : —"}
-            </span>
+            <span className="font-mono text-[10px] text-muted-foreground">{updated}</span>
           </div>
         </div>
       </section>
 
       <section className="py-12">
         <div className="container max-w-4xl">
-          {err && (
+          {error ? (
             <div className="border border-destructive/40 bg-destructive/5 p-4 font-mono text-xs text-destructive mb-4">
-              Failed to load status: {err}
+              Failed to load status: {(error as Error).message}
             </div>
-          )}
+          ) : null}
+
+          {isLoading ? (
+            <div className="border border-border bg-card p-6 font-mono text-xs text-muted-foreground">
+              Loading live status...
+            </div>
+          ) : null}
 
           <div className="border border-border bg-card divide-y divide-border">
-            {(data?.services ?? []).map((s, idx) => {
-              const segs = bars(idx, s.uptime_90d);
-              const ok = s.status === "operational";
-              const deg = s.status === "degraded";
+            {(data?.services ?? []).map((service, index) => {
+              const segs = bars(index, service.uptime_90d);
+              const ok = service.status === "operational";
+              const deg = service.status === "degraded";
               return (
-                <div key={s.name} className="p-5">
+                <div key={service.name} className="p-5">
                   <div className="flex items-center justify-between gap-4 mb-3">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <span
@@ -95,16 +105,16 @@ const Status = () => {
                           ok ? "bg-primary" : deg ? "bg-warning" : "bg-destructive"
                         }`}
                       />
-                      <span className="font-mono text-sm text-foreground truncate">{s.name}</span>
-                      {s.note && (
+                      <span className="font-mono text-sm text-foreground truncate">{service.name}</span>
+                      {service.note ? (
                         <span className="font-mono text-[10px] text-muted-foreground italic">
-                          ({s.note})
+                          ({service.note})
                         </span>
-                      )}
+                      ) : null}
                     </div>
                     <div className="flex items-center gap-4 font-mono text-[11px] shrink-0">
                       <span className="text-muted-foreground">
-                        90d <span className="text-foreground">{s.uptime_90d.toFixed(2)}%</span>
+                        90d <span className="text-foreground">{service.uptime_90d.toFixed(2)}%</span>
                       </span>
                       <span
                         className={`uppercase tracking-wider text-[10px] font-bold ${
@@ -156,9 +166,9 @@ const Status = () => {
             </div>
             <div className="border border-border bg-card p-4">
               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
-                Privacy Layer
+                Refresh
               </div>
-              <div className="text-foreground">ε = 0.3 · DP-compliant</div>
+              <div className="text-foreground">15s live polling</div>
             </div>
           </div>
         </div>
@@ -167,6 +177,4 @@ const Status = () => {
       <Footer />
     </div>
   );
-};
-
-export default Status;
+}

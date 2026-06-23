@@ -11,6 +11,7 @@ import { AdvancedTelemetry } from "@/components/AdvancedTelemetry";
 import { MarqueeTicker } from "@/components/MarqueeTicker";
 import { ObservationClock } from "@/components/ObservationClock";
 import { CountryTable } from "@/components/CountryTable";
+import { CountryExplorer } from "@/components/CountryExplorer";
 import { UNPanel } from "@/components/UNPanel";
 import { ApiPlayground } from "@/components/ApiPlayground";
 import { ResearchPapers } from "@/components/ResearchPapers";
@@ -109,6 +110,11 @@ const Index = () => {
           <div className="grid lg:grid-cols-[1.6fr_1fr] gap-4 mb-4">
             <TrendChart />
             <UNPanel />
+          </div>
+
+          {/* Country table full-width */}
+          <div className="mb-4">
+            <CountryExplorer />
           </div>
 
           {/* Country table full-width */}

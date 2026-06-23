@@ -14,6 +14,7 @@ export const Nav = () => {
 
         <nav className="hidden md:flex items-center gap-7 font-mono text-xs text-muted-foreground">
           <a href="/#telemetry" className="hover:text-primary transition-colors">TELEMETRY</a>
+          <a href="/#countries" className="hover:text-primary transition-colors">COUNTRIES</a>
           <a href="/#playground" className="hover:text-primary transition-colors">PLAYGROUND</a>
           <a href="/#docs" className="hover:text-primary transition-colors">DOCS</a>
           <a href="/#research" className="hover:text-primary transition-colors">RESEARCH</a>

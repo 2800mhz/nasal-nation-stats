@@ -2,94 +2,135 @@ import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 const ENDPOINTS = [
-  { method: "GET", path: "/v1/current", desc: "Real-time global pick count" },
-  { method: "GET", path: "/v1/regional", desc: "Breakdown by country / continent" },
-  { method: "GET", path: "/v1/trend?window=24h", desc: "Time-series with confidence interval" },
-  { method: "POST", path: "/v1/forecast", desc: "Predictive model · next 6h" },
-  { method: "GET", path: "/v1/demographics", desc: "Age, occupation, posture (Pro)" },
+  { method: "GET", path: "/api/v1/current", desc: "Live global current-pickers payload" },
+  { method: "GET", path: "/api/v1/regional", desc: "Region breakdown and methodology" },
+  { method: "GET", path: "/api/v1/status", desc: "Operational health and calibration info" },
+  { method: "GET", path: "/api/v1/country/:code", desc: "Single-country detail payload" },
 ];
 
-const CURL = `curl -X GET https://api.nosepick.io/v1/current \\
-  -H "Authorization: Bearer np_live_sk_••••••••••••" \\
-  -H "Accept: application/json"`;
+const CURL = `curl https://api.nosepick.io/api/v1/current
+
+curl https://api.nosepick.io/api/v1/country/TR`;
+
+const FETCH = `const res = await fetch("/api/v1/current");
+const json = await res.json();
+console.log(json.current_pickers);`;
+
+const ORDERED = `const codes = ["BD", "SE", "TR"];
+const countries = codes
+  .map((code) => lookupCountry(code))
+  .filter(Boolean);`;
 
 const RESPONSE = `{
   "current_pickers": 1134872419,
   "confidence_interval": "±2.3%",
   "model_version": "rhino-v4.2.1",
   "privacy_epsilon": 0.3,
-  "observation_timestamp": "2025-04-26T14:23:18.441Z",
+  "observation_timestamp": "2026-06-23T12:00:00.000Z",
+  "frequency_per_day_global_avg": 4,
+  "prevalence_rate": 0.91,
   "regional_breakdown": {
-    "south_se_asia":   { "pickers": 412883711, "share": 0.364 },
-    "east_asia":       { "pickers": 218447220, "share": 0.193 },
-    "middle_east":     {  "pickers": 84112905, "share": 0.074 },
-    "europe":          { "pickers": 102837441, "share": 0.091 },
-    "north_america":   {  "pickers": 53219808, "share": 0.047 },
-    "africa":          { "pickers": 198471122, "share": 0.175 },
-    "latin_america":   {  "pickers": 64900212, "share": 0.057 }
+    "south_asia": 412883711,
+    "east_asia": 218447220,
+    "middle_east": 84112905,
+    "europe": 102837441,
+    "north_america": 53219808,
+    "africa": 198471122,
+    "latin_america": 64900212
   },
   "un_civilizational_index": 102487,
-  "rate_per_second": { "starts": 312488, "ends": 309117 },
-  "metadata": {
-    "data_sources": 47,
-    "last_recalibration": "2025-04-26T14:00:00Z",
-    "peer_reviewed": true
-  }
+  "data_sources": [
+    { "title": "Jefferson & Thompson, 1995", "url": "https://pubmed.ncbi.nlm.nih.gov/7852253/" }
+  ]
 }`;
 
 export const ApiDocs = () => {
-  const [copied, setCopied] = useState<"curl" | "json" | null>(null);
-  const copy = (text: string, which: "curl" | "json") => {
-    navigator.clipboard.writeText(text);
+  const [copied, setCopied] = useState<"curl" | "fetch" | "ordered" | "json" | null>(null);
+
+  const copy = async (text: string, which: typeof copied) => {
+    await navigator.clipboard.writeText(text);
     setCopied(which);
-    setTimeout(() => setCopied(null), 1500);
+    window.setTimeout(() => setCopied(null), 1500);
   };
 
   return (
     <section id="docs" className="border-t border-border py-20">
       <div className="container">
-        <div className="max-w-2xl mb-12">
+        <div className="max-w-3xl mb-12">
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">/ documentation</span>
           <h2 className="font-mono text-3xl md:text-5xl font-extrabold mt-3 leading-tight">
-            One endpoint. <span className="text-primary text-glow">A billion fingers.</span>
+            Practical API docs with copyable examples
           </h2>
-          <p className="text-muted-foreground mt-4 max-w-xl">
-            REST + WebSocket. 99.997% uptime. Sub-200ms responses from 14 edge regions.
-            Built on a proprietary <span className="font-mono text-foreground">Rhinometric™</span> inference layer.
+          <p className="text-muted-foreground mt-4 max-w-2xl">
+            No auth, no versioning ceremony, no fluff. The site is built to show exactly how to fetch live data,
+            how to open one country, and how to keep your own ordered list of countries intact.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* Endpoint list */}
           <div className="border border-border bg-card overflow-hidden">
             <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/40">
               <span className="w-2.5 h-2.5 rounded-full bg-destructive/80" />
               <span className="w-2.5 h-2.5 rounded-full bg-warning/80" />
               <span className="w-2.5 h-2.5 rounded-full bg-primary/80" />
-              <span className="ml-2 font-mono text-[11px] text-muted-foreground">api.nosepick.io · v1</span>
+              <span className="ml-2 font-mono text-[11px] text-muted-foreground">api.nosepick.io · live routes</span>
             </div>
+
             <div className="divide-y divide-border">
-              {ENDPOINTS.map((e) => (
-                <div key={e.path} className="flex items-center gap-3 px-4 py-3 font-mono text-xs hover:bg-muted/30 transition-colors">
+              {ENDPOINTS.map((endpoint) => (
+                <div key={endpoint.path} className="flex items-center gap-3 px-4 py-3 font-mono text-xs hover:bg-muted/30 transition-colors">
                   <span
                     className={`px-1.5 py-0.5 rounded-sm text-[10px] font-bold ${
-                      e.method === "GET" ? "bg-primary/15 text-primary" : "bg-warning/15 text-warning"
+                      endpoint.method === "GET" ? "bg-primary/15 text-primary" : "bg-warning/15 text-warning"
                     }`}
                   >
-                    {e.method}
+                    {endpoint.method}
                   </span>
-                  <span className="text-foreground">{e.path}</span>
-                  <span className="ml-auto text-muted-foreground text-[11px] hidden sm:inline">{e.desc}</span>
+                  <span className="text-foreground">{endpoint.path}</span>
+                  <span className="ml-auto text-muted-foreground text-[11px] hidden sm:inline">
+                    {endpoint.desc}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* cURL + response */}
           <div className="space-y-6">
-            <CodeBlock title="REQUEST · cURL" code={CURL} onCopy={() => copy(CURL, "curl")} copied={copied === "curl"} />
-            <CodeBlock title="RESPONSE · 200 OK" code={RESPONSE} onCopy={() => copy(RESPONSE, "json")} copied={copied === "json"} />
+            <CodeBlock
+              title="REQUEST · cURL"
+              code={CURL}
+              onCopy={() => copy(CURL, "curl")}
+              copied={copied === "curl"}
+            />
+            <CodeBlock
+              title="REQUEST · fetch()"
+              code={FETCH}
+              onCopy={() => copy(FETCH, "fetch")}
+              copied={copied === "fetch"}
+            />
+            <CodeBlock
+              title="ORDERED COUNTRIES · site-side array"
+              code={ORDERED}
+              onCopy={() => copy(ORDERED, "ordered")}
+              copied={copied === "ordered"}
+            />
           </div>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-6 mt-6">
+          <div className="border border-border bg-card p-5">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">/ response</div>
+            <h3 className="font-mono text-xl font-bold mt-1">Example JSON payload</h3>
+            <p className="font-mono text-xs text-muted-foreground mt-2">
+              This is the shape returned by the current endpoint and mirrored by the static fallback.
+            </p>
+          </div>
+          <CodeBlock
+            title="RESPONSE · 200 OK"
+            code={RESPONSE}
+            onCopy={() => copy(RESPONSE, "json")}
+            copied={copied === "json"}
+          />
         </div>
       </div>
     </section>
