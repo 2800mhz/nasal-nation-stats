@@ -18,7 +18,6 @@ export const Nav = () => {
           <a href="/#playground" className="hover:text-primary transition-colors">PLAYGROUND</a>
           <a href="/#docs" className="hover:text-primary transition-colors">DOCS</a>
           <a href="/#research" className="hover:text-primary transition-colors">RESEARCH</a>
-          <a href="/#pricing" className="hover:text-primary transition-colors">PRICING</a>
           <a href="/status" className="hover:text-primary transition-colors">STATUS</a>
         </nav>
 
@@ -27,12 +26,6 @@ export const Nav = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-flicker" />
             ALL SYSTEMS NOMINAL
           </span>
-          <a
-            href="#pricing"
-            className="font-mono text-[11px] uppercase tracking-widest font-bold px-3 py-1.5 bg-primary text-primary-foreground hover:brightness-110 transition-all"
-          >
-            Get Key
-          </a>
         </div>
       </div>
     </header>

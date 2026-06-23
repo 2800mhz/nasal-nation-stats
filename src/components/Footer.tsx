@@ -29,7 +29,6 @@ export const Footer = () => (
           <li><a href="/#docs" className="hover:text-primary">API Reference</a></li>
           <li><a href="/#countries" className="hover:text-primary">Country Explorer</a></li>
           <li><a href="/#playground" className="hover:text-primary">API Playground</a></li>
-          <li><a href="/#pricing" className="hover:text-primary">Pricing</a></li>
           <li><Link to="/status" className="hover:text-primary">Status</Link></li>
         </ul>
       </div>

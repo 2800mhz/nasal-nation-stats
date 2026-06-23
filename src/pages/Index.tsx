@@ -3,7 +3,6 @@ import { LiveCounter } from "@/components/LiveCounter";
 import { StatCard } from "@/components/StatCard";
 import { TrendChart } from "@/components/TrendChart";
 import { ApiDocs } from "@/components/ApiDocs";
-import { Pricing } from "@/components/Pricing";
 import { Methodology } from "@/components/Methodology";
 import { TrustBar } from "@/components/TrustBar";
 import { Footer } from "@/components/Footer";
@@ -48,12 +47,6 @@ const Index = () => {
                 className="font-mono text-xs uppercase tracking-widest font-bold px-5 py-3 bg-primary text-primary-foreground hover:brightness-110 transition-all"
               >
                 Read the Docs →
-              </a>
-              <a
-                href="#pricing"
-                className="font-mono text-xs uppercase tracking-widest font-bold px-5 py-3 border border-border hover:border-primary hover:text-primary transition-all"
-              >
-                Get API Key
               </a>
             </div>
           </div>
@@ -129,7 +122,6 @@ const Index = () => {
       <ApiDocs />
       <ApiPlayground />
       <Methodology />
-      <Pricing />
       <ResearchPapers />
       <Footer />
     </div>
